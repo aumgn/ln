@@ -6,5 +6,5 @@ def setup_db(config)
   require './db/shortened_link.rb'
 
   DataMapper.finalize
-  DataMapper.auto_migrate!
+  DataMapper.auto_upgrade!
 end

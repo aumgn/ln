@@ -14,11 +14,21 @@ class User
        }
   property :password,          BCryptHash, required: true
   property :created_at,        DateTime
+  property :admin,             Boolean, default: false
   property :auth_token,        String, unique: true, length: 100
 
   has n, :shortened_links
 
   before :save,   :create_auth_token
+
+  def self.authenticate(email, password)
+    user = first email: email
+    if !user.nil? && user.password == password
+      return user
+    else
+      return nil
+    end
+  end
 
   def create_auth_token
     begin
