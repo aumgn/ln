@@ -1,0 +1,11 @@
+table
+  tr
+    th Name
+    th Url
+  - for link in current_user.shortened_links do
+    tr
+      td = link.name
+      td
+        a href="#{link.url}" = link.url
+      td
+        button.delete data-link-name="#{link.name}" Delete

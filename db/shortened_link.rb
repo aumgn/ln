@@ -3,7 +3,8 @@ class ShortenedLink
   FORBIDDEN = [
                "admin",
                "login",
-               "logout"
+               "logout",
+               "links"
               ]
 
   include DataMapper::Resource

@@ -59,13 +59,28 @@ get '/logout' do
   redirect '/login'
 end
 
+get '/links' do
+  redirect "/login" if current_user.nil?
+  slim :links
+end
+
 get '/admin' do
   halt 403 if current_user.nil? || !current_user.admin
   slim :admin
 end
 
-get %r{^/([0-9a-zA-Z]+)$} do
+link = %r{^/([0-9a-zA-Z]+)$}
+
+get link do
   link = ShortenedLink.first name: params[:captures]
   raise(Sinatra::NotFound) if link.nil?
-  redirect(link.url)
+  redirect link.url
+end
+
+delete link do
+  link = ShortenedLink.first name: params[:captures]
+  raise(Sinatra::NotFound) if link.nil?
+  halt(403) if !current_user.admin && current_user != link.user
+  link.destroy
+  redirect "/links"
 end
