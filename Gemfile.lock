@@ -82,6 +82,7 @@ PLATFORMS
 DEPENDENCIES
   data_mapper
   dm-postgres-adapter
+  dm-types
   sinatra
   slim
   thin
