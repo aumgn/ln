@@ -1,6 +1,22 @@
 div.container.newlink
   form method="post" action="/"
     .hero-unit
+
+      - if !@new_link.nil?
+        - if @new_link.errors.length != 0
+          div.alert.alert-error
+            h4 Error
+            ul
+              - for error in @new_link.errors do
+                li = error.first
+        - else
+          div.alert.alert-success
+            h4 Success
+            | New link created :
+            a href="#{request.url}#{@new_link.name}"
+              |  #{request.url}#{@new_link.name}
+
+
       h1 ln
       div
         p Paste your URL :

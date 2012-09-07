@@ -29,9 +29,9 @@ end
 
 post '/' do
   redirect("/login") if current_user.nil?
-  @link = ShortenedLink.create(name: params[:name],
+  @new_link = ShortenedLink.create(name: params[:name],
       url: params[:url], user: current_user)
-  slim :new_link
+  slim :index
 end
 
 get '/login' do

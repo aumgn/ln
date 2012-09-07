@@ -12,13 +12,22 @@ body a:hover {
     text-decoration: none;
 }
 
-.hero-unit {
-    background: none;
+body .alert a {
+    color: rgb(0, 136, 204);
+    text-decoration: none;
+}
+
+body .alert a:hover {
+    color: rgb(0, 85, 128);
 }
 
 .container.newlink {
     margin-top: 40px;
     width: 800px;
+}
+
+.container.newlink .hero-unit {
+    background: none;
 }
 
 .container.newlink span.add-on {
