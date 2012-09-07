@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $('button.update').click(function() {
         button = $(this);
 	     row = button.parents('[data-link-name]');
@@ -44,6 +45,39 @@ $(document).ready(function() {
 		          });
 	         }
 	     }
+    });
+
+    $('button.reset').click(function() {
+        button = $(this);
+	     row = button.parents('[data-link-name]');
+	     button.append('<img src="/img/working.gif">');
+	     button.attr("disabled", "disabled");
+        clicks = row.find(".clicks");
+        if (clicks.html != "0") {
+		      $.ajax({
+		          url: '/' + row.attr('data-link-name'),
+		          type: 'put',
+		          data: {
+			           reset: "1"
+		          },
+		          success: function(errors, txt, xhr) {
+			           button.find("img").remove();
+			           button.removeAttr("disabled");
+			           if (errors.length == 0) {
+			               clicks.html("0");
+			           } else {
+			               for (var i = 0; i < errors.length; i++) {
+				                alert(errors[i]);
+			               }
+			           }
+		          },
+		          error: function() {
+			           button.find("img").remove();
+			           button.removeAttr("disabled");
+			           alert("An error occured !");
+		          }
+		      });
+        }
     });
 
     $('button.delete').click(function() {

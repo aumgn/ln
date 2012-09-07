@@ -1,3 +1,4 @@
+
 require 'sinatra'
 require 'sinatra/cookies'
 require 'sinatra/json'
@@ -83,7 +84,10 @@ put link do
   link = ShortenedLink.first name: params[:captures]
   raise(Sinatra::NotFound) if link.nil?
   halt(403) if !current_user.admin && current_user != link.user
-  link.update(url: params[:url])
+  updates = {}
+  updates[:clicks] = 0 if params[:reset] = "1"
+  updates[:url] = params[:url] if params[:url]
+  link.update(updates);
   json link.errors.to_a
 end
 

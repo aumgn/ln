@@ -5,11 +5,13 @@ table
     th Url
   - for link in current_user.shortened_links do
     tr data-link-name="#{link.name}"
-      td = link.name
-      td = link.clicks
+      td.name = link.name
+      td.clicks = link.clicks
       td
         a.url href="#{link.url}" = link.url
-        td
-          button.update Update
+      td
+        button.update Update
+      td
+        button.reset Reset
       td
         button.delete Delete
