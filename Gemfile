@@ -3,8 +3,10 @@ source :rubygems
 gem 'sinatra'
 gem 'sinatra-contrib'
 
-gem 'shotgun'
-gem 'thin'
+group :development do
+      gem 'shotgun'
+      gem 'thin'
+end
 
 gem 'json_pure', require: 'json'
 

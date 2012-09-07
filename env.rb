@@ -2,13 +2,15 @@
 ## Dependencies ##
 ##################
 require 'bundler/setup'
-Bundler.require(:default)
+
+RACK_ENV = ENV["RACK_ENV"] || :development
+Bundler.require(:default, RACK_ENV)
 
 ###########
 ## Setup ##
 ###########
 require './db/database'
 
-config = YAML.load_file("./config.yml")
+config = { dburl: ENV["DB_URL"] }
 
 setup_db(config)

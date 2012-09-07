@@ -1,4 +1,3 @@
-
 require 'sinatra'
 require 'sinatra/cookies'
 require 'sinatra/json'
