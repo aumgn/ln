@@ -1,17 +1,20 @@
-table
-  tr
-    th Name
-    th Clicks
-    th Url
-  - for link in current_user.shortened_links do
-    tr data-link-name="#{link.name}"
-      td.name = link.name
-      td.clicks = link.clicks
-      td
-        a.url href="#{link.url}" = link.url
-      td
-        button.update Update
-      td
-        button.reset Reset
-      td
-        button.delete Delete
+.container
+  table.links.table.table-stripped
+    thead
+      tr
+        th Name
+        th Clicks
+        th Url
+        th Actions
+    tbody
+      - for link in current_user.shortened_links do
+        tr data-link-name="#{link.name}"
+          td.name = link.name
+          td.clicks = link.clicks
+          td
+            a.url href="#{link.url}" = link.url
+            td
+              .btn-group
+                button.btn.update Update
+                button.btn.reset Reset
+                button.btn.delete Delete

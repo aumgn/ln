@@ -1,0 +1,72 @@
+body {
+    background-color: rgb(68, 68, 68);
+    color: white;
+}
+
+body a {
+    color: rgb(153, 153, 153);
+}
+
+body a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.hero-unit {
+    background: none;
+}
+
+.container.newlink {
+    margin-top: 40px;
+    width: 800px;
+}
+
+.container.newlink span.add-on {
+    color: rgb(51, 51, 51);
+    padding-left: 10px;
+    padding-right: 6px;
+    height: 32px;
+    line-height: 32px;
+}
+
+.container.newlink div h1 {
+    font-family: "Helvetica";
+    font-style: italic;
+    text-align: center;
+    margin: 14px auto;
+}
+
+.container.newlink div input,
+.container.newlink div button {
+    padding: 10px 12px;
+}
+
+.container.newlink div p {
+    padding: 5px 12px;
+}
+
+.container.newlink div input#name {
+    padding-left: 6px;
+    width: 384px;
+}
+
+.container.newlink div input#url {
+    width: 652px;
+}
+
+.container .links {
+    margin-top: 40px;
+}
+
+.container .links button img {
+    margin-left: 8px;
+}
+
+.container.login {
+    padding-top: 40px;
+    width: 500px;
+}
+
+.container.login #remember {
+    margin: auto 10px;
+}
