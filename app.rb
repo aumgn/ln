@@ -74,6 +74,7 @@ link = %r{^/([0-9a-zA-Z]+)$}
 get link do
   link = ShortenedLink.first name: params[:captures]
   raise(Sinatra::NotFound) if link.nil?
+  link.update clicks: link.clicks + 1
   redirect link.url
 end
 

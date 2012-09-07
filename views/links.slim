@@ -1,10 +1,12 @@
 table
   tr
     th Name
+    th Clicks
     th Url
   - for link in current_user.shortened_links do
     tr data-link-name="#{link.name}"
       td = link.name
+      td = link.clicks
       td
         a.url href="#{link.url}" = link.url
         td
