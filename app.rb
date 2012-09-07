@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'sinatra/cookies'
+require 'sinatra/json'
 require './env'
 
 #############
@@ -82,12 +83,13 @@ put link do
   link = ShortenedLink.first name: params[:captures]
   raise(Sinatra::NotFound) if link.nil?
   halt(403) if !current_user.admin && current_user != link.user
-  link.update url: params[:url]
+  link.update(url: params[:url])
+  json link.errors.to_a
 end
 
 delete link do
   link = ShortenedLink.first name: params[:captures]
   raise(Sinatra::NotFound) if link.nil?
   halt(403) if !current_user.admin && current_user != link.user
-  link.destroy
+  json link.destroy ? [] : ["Unable to delete link #{link.name}."]
 end

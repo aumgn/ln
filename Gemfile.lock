@@ -95,6 +95,7 @@ DEPENDENCIES
   data_mapper
   dm-postgres-adapter
   dm-types
+  json_pure
   shotgun
   sinatra
   sinatra-contrib

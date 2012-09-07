@@ -6,6 +6,8 @@ gem 'sinatra-contrib'
 gem 'shotgun'
 gem 'thin'
 
+gem 'json_pure', require: 'json'
+
 gem 'data_mapper'
 gem 'dm-types'
 gem 'dm-postgres-adapter'

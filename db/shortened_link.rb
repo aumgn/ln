@@ -11,7 +11,7 @@ class ShortenedLink
 
   property :id,               Serial
   property :name,             String, required: true, unique: true, length: 16
-  property :url,              String, required: true, format: :url
+  property :url,              String, length: 2_000, required: true, format: :url
   property :clicks,           Integer, default: 0
   property :created_at,       DateTime
   property :updated_at,       DateTime
