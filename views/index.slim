@@ -1,30 +1,62 @@
 div.container.newlink
-  form method="post" action="/"
-    .hero-unit
-
-      - if !@new_link.nil?
-        - if @new_link.errors.length != 0
-          div.alert.alert-error
-            h4 Error
-            ul
-              - for error in @new_link.errors do
-                li = error.first
-        - else
-          div.alert.alert-success
-            h4 Success
-            | New link created :
-            a href="#{request.url}#{@new_link.name}"
-              |  #{request.url}#{@new_link.name}
+  ul#tabs.nav.nav-tabs
+    li.pull-right
+      a href="#tab2" data-toggle="tab" List
+    li.active.pull-right
+      a href="#tab1" data-toggle="tab" New Link
 
 
-      h1 ln
-      div
-        p Paste your URL :
-        input id="url" name="url" type="text" placeholder="http://example.com"
-      div
-        p.pull-left Choose a name :
-        .input-prepend.pull-left
-          span.add-on http://#{request.host}/
-          input id="name" name="name" type="text" placeholder="example"
-      div style="clear: both;"
-        button.btn type="submit" Go for it !
+  .tab-content
+
+    #tab1.tab-pane.active
+      form method="post" action="/"
+        .hero-unit
+
+          - if !@new_link.nil?
+            - if @new_link.errors.length != 0
+              div.alert.alert-error
+                h4 Error
+                ul
+                  - for error in @new_link.errors do
+                    li = error.first
+            - else
+              div.alert.alert-success
+                h4 Success
+                | New link created :
+                a href="#{request.url}#{@new_link.name}"
+                  |  #{request.url}#{@new_link.name}
+
+          h1 ln
+          div
+            p Paste your URL :
+            input id="url" name="url" type="text" placeholder="http://example.com"
+            div
+              p.pull-left Choose a name :
+              .input-prepend.pull-left
+                span.add-on http://#{request.host}/
+                input id="name" name="name" type="text" placeholder="example"
+            div style="clear: both;"
+              button.btn type="submit" Go for it !
+
+    #tab2.tab-pane
+      table.links.table.table-stripped
+        thead
+          tr
+            th Name
+            th Clicks
+            th Url
+            th Actions
+        tbody
+          - for link in current_user.shortened_links do
+            tr data-link-name="#{link.name}"
+              td.name = link.name
+              td.clicks = link.clicks
+              td
+                a.url href="#{link.url}" = link.url
+              td
+                .btn-group
+                  button.btn.update Update
+                  button.btn.reset Reset
+                  button.btn.delete Delete
+
+script src="/index.js"

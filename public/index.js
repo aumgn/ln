@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+    $("#tabs a").click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+
     $('button.update').click(function() {
         button = $(this);
 	     row = button.parents('[data-link-name]');
@@ -17,7 +22,7 @@ $(document).ready(function() {
 		          url_container.replaceWith(old_container);
 	         } else {
 		          button.attr("disabled", "disabled");
-		          button.append("<img src=\"/img/working.gif\"/>");
+		          button.append("<img src=\"/working.gif\"/>");
 		          $.ajax({
 		              url: '/' + row.attr('data-link-name'),
 		              type: 'put',
@@ -50,7 +55,7 @@ $(document).ready(function() {
     $('button.reset').click(function() {
         button = $(this);
 	     row = button.parents('[data-link-name]');
-	     button.append('<img src="/img/working.gif">');
+	     button.append('<img src="/working.gif">');
 	     button.attr("disabled", "disabled");
         clicks = row.find(".clicks");
         if (clicks.html != "0") {
@@ -83,7 +88,7 @@ $(document).ready(function() {
     $('button.delete').click(function() {
 	     button = $(this);
 	     row = button.parents('[data-link-name]');
-	     button.append('<img src="/img/working.gif">');
+	     button.append('<img src="/working.gif">');
 	     button.attr("disabled", "disabled");
 	     $.ajax({
 	         url: '/' + row.attr('data-link-name'),

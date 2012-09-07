@@ -60,11 +60,6 @@ get '/logout' do
   redirect '/login'
 end
 
-get '/links' do
-  redirect "/login" if current_user.nil?
-  slim :links
-end
-
 get '/admin' do
   halt 403 if current_user.nil? || !current_user.admin
   slim :admin
@@ -80,6 +75,7 @@ get link do
 end
 
 put link do
+  halt(403) if current_user.nil?
   link = ShortenedLink.first name: params[:captures]
   raise(Sinatra::NotFound) if link.nil?
   halt(403) if !current_user.admin && current_user != link.user
@@ -92,6 +88,7 @@ end
 
 delete link do
   link = ShortenedLink.first name: params[:captures]
+  halt(403) if current_user.nil?
   raise(Sinatra::NotFound) if link.nil?
   halt(403) if !current_user.admin && current_user != link.user
   json link.destroy ? [] : ["Unable to delete link #{link.name}."]
