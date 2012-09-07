@@ -77,10 +77,16 @@ get link do
   redirect link.url
 end
 
+put link do
+  link = ShortenedLink.first name: params[:captures]
+  raise(Sinatra::NotFound) if link.nil?
+  halt(403) if !current_user.admin && current_user != link.user
+  link.update url: params[:url]
+end
+
 delete link do
   link = ShortenedLink.first name: params[:captures]
   raise(Sinatra::NotFound) if link.nil?
   halt(403) if !current_user.admin && current_user != link.user
   link.destroy
-  redirect "/links"
 end

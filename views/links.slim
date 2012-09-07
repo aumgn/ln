@@ -3,9 +3,11 @@ table
     th Name
     th Url
   - for link in current_user.shortened_links do
-    tr
+    tr data-link-name="#{link.name}"
       td = link.name
       td
-        a href="#{link.url}" = link.url
+        a.url href="#{link.url}" = link.url
+        td
+          button.update Update
       td
-        button.delete data-link-name="#{link.name}" Delete
+        button.delete Delete
