@@ -14,10 +14,24 @@ $(document).ready(function() {
         $(this).tab('show');
     });
 
+    $(".alert").alert();
+
     $("button.random").click(function(event) {
         event.preventDefault();
         $(this).prevAll("#name").val(randomName(8));
     });
+
+    var alerterrortemplate = $(".alertstemplate .alert-error");
+    function displayErrors(errors) {
+        var alert = alerterrortemplate.clone();
+        alert.append("<ul></ul>");
+        var list = alert.find("ul");
+		  for (var i = 0; i < errors.length; i++) {
+            list.append(errors[i]);
+		  }
+        var alerts = $(".alerts");
+        alerts.append(alert);
+    }
 
     $('button.update').click(function() {
         var button = $(this);
@@ -55,15 +69,13 @@ $(document).ready(function() {
 			                   old_container.html(url);
 			                   url_container.replaceWith(old_container);
 			               } else {
-			                   for (var i = 0; i < errors.length; i++) {
-				                    alert(errors[i]);
-			                   }
+                            displayErrors(errors);
 			               }
 		              },
 		              error: function() {
 			               button.removeAttr("disabled");
 			               icon.attr("class", iconclass);
-			               alert("An error occured !");
+		                  displayErrors([ "An unexpected error occured !" ]);
 		              }
 		          });
 	         }
@@ -91,15 +103,13 @@ $(document).ready(function() {
 			           if (errors.length == 0) {
 			               clicks.html("0");
 			           } else {
-			               for (var i = 0; i < errors.length; i++) {
-				                alert(errors[i]);
-			               }
+                        displayErrors(errors);
 			           }
 		          },
 		          error: function() {
 			           button.removeAttr("disabled");
 			           icon.attr("class", iconclass);
-			           alert("An error occured !");
+		              displayErrors([ "An unexpected error occured !" ]);
 		          }
 		      });
         }
@@ -119,15 +129,13 @@ $(document).ready(function() {
 		          if (errors.length == 0) {
 		              row.remove();
 		          } else {
-		              for (var i = 0; i < errors.length; i++) {
-			               alert(errors[i]);
-		              }
+                    displayErrors(errors);
 		          }
 	         },
 	         error: function() {
 		          button.removeAttr("disabled");
 			       icon.attr("class", iconclass);
-		          alert("An error occured !");
+		          displayErrors([ "An unexpected error occured !" ]);
 	         }
 	     });
     });
