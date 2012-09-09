@@ -38,7 +38,7 @@ div.container.newlink
             input id="url" name="url" type="text" placeholder="http://example.com"
             div
               p.pull-left Choose a name :
-              .input-prepend.pull-left
+              .input-prepend.pull-right
                 span.add-on http://#{request.host}/
                 input id="name" name="name" type="text" placeholder="example"
             div style="clear: both;"
@@ -59,10 +59,13 @@ div.container.newlink
               td.clicks = link.clicks
               td
                 a.url href="#{link.url}" = link.url
-              td
-                .btn-group
-                  button.btn.update Update
-                  button.btn.reset Reset
-                  button.btn.delete Delete
+              td.actions
+                .btn-group.pull-right
+                  button.btn.update
+                    i.icon-edit
+                  button.btn.reset
+                    i.icon-repeat
+                  button.btn.delete
+                    i.icon-remove-sign
 
 script src="/index.js"

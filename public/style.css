@@ -21,6 +21,12 @@ body .alert a:hover {
     color: rgb(0, 85, 128);
 }
 
+[class^="icon-working"],
+[class*=" icon-working"] {
+    background-image: url("/working.gif");
+    background-position: 0px 0px;
+}
+
 .container #tabs i {
     margin-left: 3px;
     margin-right: 3px;
@@ -30,6 +36,14 @@ body .alert a:hover {
 .container #tabs li.active i,
 .container #tabs a:hover i {
     background-image: url("/bootstrap/img/glyphicons-halflings.png");
+}
+
+.container .links td {
+    line-height: 42px;
+}
+
+.container .links .clicks {
+    text-align: center;
 }
 
 .container.newlink {
@@ -67,11 +81,11 @@ body .alert a:hover {
 
 .container.newlink div input#name {
     padding-left: 6px;
-    width: 384px;
+    width: 350px;
 }
 
 .container.newlink div input#url {
-    width: 652px;
+    width: 654px;
 }
 
 .container .links {

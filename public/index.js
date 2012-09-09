@@ -6,23 +6,27 @@ $(document).ready(function() {
     });
 
     $('button.update').click(function() {
-        button = $(this);
-	     row = button.parents('[data-link-name]');
-	     url_container = row.find('.url');
+        var button = $(this);
+	     var row = button.parents('[data-link-name]');
+	     var url_container = row.find('.url');
 	     if (url_container.is('a')) {
-	         url = url_container.html();
+	         var url = url_container.html();
+            var width = url_container.width();
 	         url_container.replaceWith('<input class="url" name="url" value="' + url + '"/>');
-	         input = row.find('.url');
+	         var input = row.find('.url');
+            input.css("width", width);
 	         input.data('old-container', url_container.clone());
 	     } else {
-	         old_container = url_container.data('old-container');
-	         old_url = old_container.attr("href");
-	         url = url_container.val();
+	         var old_container = url_container.data('old-container');
+	         var old_url = old_container.attr("href");
+	         var url = url_container.val();
 	         if (url == old_url) {
 		          url_container.replaceWith(old_container);
 	         } else {
 		          button.attr("disabled", "disabled");
-		          button.append("<img src=\"/working.gif\"/>");
+                var icon = button.find("i");
+                var iconclass = icon.attr("class");
+                icon.attr("class", "icon-working");
 		          $.ajax({
 		              url: '/' + row.attr('data-link-name'),
 		              type: 'put',
@@ -30,8 +34,8 @@ $(document).ready(function() {
 			               url: url
 		              },
 		              success: function(errors, txt, xhr) {
-			               button.find("img").remove();
 			               button.removeAttr("disabled");
+			               icon.attr("class", iconclass);
 			               if (errors.length == 0) {
 			                   old_container.attr("href", url);
 			                   old_container.html(url);
@@ -43,8 +47,8 @@ $(document).ready(function() {
 			               }
 		              },
 		              error: function() {
-			               button.find("img").remove();
 			               button.removeAttr("disabled");
+			               icon.attr("class", iconclass);
 			               alert("An error occured !");
 		              }
 		          });
@@ -53,12 +57,14 @@ $(document).ready(function() {
     });
 
     $('button.reset').click(function() {
-        button = $(this);
-	     row = button.parents('[data-link-name]');
-	     button.append('<img src="/working.gif">');
-	     button.attr("disabled", "disabled");
-        clicks = row.find(".clicks");
+        var button = $(this);
+	     var row = button.parents('[data-link-name]');
+        var clicks = row.find(".clicks");
         if (clicks.html != "0") {
+	         button.attr("disabled", "disabled");
+            var icon = button.find("i");
+            var iconclass = icon.attr("class");
+            icon.attr("class", "icon-working");
 		      $.ajax({
 		          url: '/' + row.attr('data-link-name'),
 		          type: 'put',
@@ -66,8 +72,8 @@ $(document).ready(function() {
 			           reset: "1"
 		          },
 		          success: function(errors, txt, xhr) {
-			           button.find("img").remove();
 			           button.removeAttr("disabled");
+			           icon.attr("class", iconclass);
 			           if (errors.length == 0) {
 			               clicks.html("0");
 			           } else {
@@ -77,8 +83,8 @@ $(document).ready(function() {
 			           }
 		          },
 		          error: function() {
-			           button.find("img").remove();
 			           button.removeAttr("disabled");
+			           icon.attr("class", iconclass);
 			           alert("An error occured !");
 		          }
 		      });
@@ -86,16 +92,17 @@ $(document).ready(function() {
     });
 
     $('button.delete').click(function() {
-	     button = $(this);
-	     row = button.parents('[data-link-name]');
-	     button.append('<img src="/working.gif">');
+	     var button = $(this);
+	     var row = button.parents('[data-link-name]');
 	     button.attr("disabled", "disabled");
+        var icon = button.find("i");
+        var iconclass = icon.attr("class");
+        icon.attr("class", "icon-working");
 	     $.ajax({
 	         url: '/' + row.attr('data-link-name'),
 	         type: 'delete',
 	         success: function(errors) {
 		          if (errors.length == 0) {
-		              button.removeAttr("disabled");
 		              row.remove();
 		          } else {
 		              for (var i = 0; i < errors.length; i++) {
@@ -104,8 +111,8 @@ $(document).ready(function() {
 		          }
 	         },
 	         error: function() {
-		          button.find("img").remove();
 		          button.removeAttr("disabled");
+			       icon.attr("class", iconclass);
 		          alert("An error occured !");
 	         }
 	     });
