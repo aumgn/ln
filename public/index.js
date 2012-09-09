@@ -1,8 +1,22 @@
+function randomName(length) {
+    var name = "";
+    var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < length; i++) {
+        name += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+    return name;
+}
+
 $(document).ready(function() {
 
-    $("#tabs .tab a").click(function(e) {
-        e.preventDefault();
+    $("#tabs .tab a").click(function(event) {
+        event.preventDefault();
         $(this).tab('show');
+    });
+
+    $("button.random").click(function(event) {
+        event.preventDefault();
+        $(this).prevAll("#name").val(randomName(8));
     });
 
     $('button.update').click(function() {

@@ -38,9 +38,11 @@ div.container.newlink
             input id="url" name="url" type="text" placeholder="http://example.com"
             div
               p.pull-left Choose a name :
-              .input-prepend.pull-right
+              .input-prepend.input-append.pull-right
                 span.add-on http://#{request.host}/
-                input id="name" name="name" type="text" placeholder="example"
+                input#name name="name" type="text" placeholder="example"
+                button.btn.random
+                  i.icon-asterisk
             div style="clear: both;"
               button.btn type="submit" Go for it !
 
