@@ -21,6 +21,17 @@ body .alert a:hover {
     color: rgb(0, 85, 128);
 }
 
+.container #tabs i {
+    margin-left: 3px;
+    margin-right: 3px;
+    background-image: url("/bootstrap/img/glyphicons-halflings-white.png");
+}
+
+.container #tabs li.active i,
+.container #tabs a:hover i {
+    background-image: url("/bootstrap/img/glyphicons-halflings.png");
+}
+
 .container.newlink {
     margin-top: 40px;
     width: 800px;
