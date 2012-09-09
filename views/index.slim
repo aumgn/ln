@@ -31,7 +31,7 @@ div.container.newlink
                 a.close data-dismiss="alert" href="#" &times;
                 h4 Success
                 | New link created :
-                a href="#{request.host_with_port}/#{@new_link.name}"
+                a href="http://#{request.host_with_port}/#{@new_link.name}"
                   |  http://#{request.host_with_port}/#{@new_link.name}
 
           div.ln-logo
@@ -62,7 +62,7 @@ div.container.newlink
           - for link in current_user.shortened_links do
             tr data-link-name="#{link.name}"
               td.name
-                a href="/#{link.name}" = link.name
+                a href="http://#{request.host_with_port}/#{link.name}" = link.name
               td.clicks = link.clicks
               td
                 a.url href="#{link.url}" = link.url
