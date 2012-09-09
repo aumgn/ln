@@ -9,6 +9,9 @@ function randomName(length) {
 
 $(document).ready(function() {
 
+    // Preload image.
+    $('<img href="/working.gif" />');
+
     $("#tabs .tab a").click(function(event) {
         event.preventDefault();
         $(this).tab('show');

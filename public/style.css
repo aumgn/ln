@@ -27,6 +27,15 @@ body .alert a:hover {
     background-position: 0px 0px;
 }
 
+.container #tabs a {
+    color: white;
+}
+
+.container #tabs li.active a,
+.container #tabs a:hover {
+    color: rgb(68, 68, 68);
+}
+
 .container #tabs i {
     margin-left: 3px;
     margin-right: 3px;
@@ -61,6 +70,10 @@ body .alert a:hover {
     padding-right: 6px;
     height: 32px;
     line-height: 32px;
+}
+
+.container.newlink .ln-logo {
+    text-align: center;
 }
 
 .container.newlink div h1 {

@@ -34,7 +34,8 @@ div.container.newlink
                 a href="#{request.host_with_port}/#{@new_link.name}"
                   |  http://#{request.host_with_port}/#{@new_link.name}
 
-          h1 ln
+          div.ln-logo
+            img src="logo.svg"
           div
             p Paste your URL :
             input id="url" name="url" type="text" placeholder="http://example.com"
@@ -60,7 +61,8 @@ div.container.newlink
         tbody
           - for link in current_user.shortened_links do
             tr data-link-name="#{link.name}"
-              td.name = link.name
+              td.name
+                a href="/#{link.name}" = link.name
               td.clicks = link.clicks
               td
                 a.url href="#{link.url}" = link.url
