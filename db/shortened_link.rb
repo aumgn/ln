@@ -1,7 +1,6 @@
 class ShortenedLink
 
   FORBIDDEN = [
-               "admin",
                "login",
                "logout"
               ]

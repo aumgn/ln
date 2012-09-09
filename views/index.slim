@@ -23,8 +23,8 @@ div.container.newlink
               div.alert.alert-success
                 h4 Success
                 | New link created :
-                a href="#{request.url}#{@new_link.name}"
-                  |  #{request.url}#{@new_link.name}
+                a href="#{request.host_with_port}/#{@new_link.name}"
+                  |  http://#{request.host_with_port}/#{@new_link.name}
 
           h1 ln
           div

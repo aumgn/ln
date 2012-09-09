@@ -17,28 +17,64 @@ helpers do
     return nil if token.nil?
     return User.first auth_token: token
   end
+
+  def production?
+    RACK_ENV == "production"
+  end
+
+  def secure_url(url)
+    url.gsub("http://", "https://")
+  end
+
+  def secure_only
+    if RACK_ENV == "production" && !request.ssl?
+      redirect secure_url(request.url)
+    end
+  end
+
+  def logged_only
+    secure_only
+    scheme = production? ? "https://" : "http://"
+    redirect(scheme + request.host_with_port + "/login") if current_user.nil?
+  end
+
+  def link_for(name)
+    link = ShortenedLink.first name: name
+    raise(Sinatra::NotFound) if link.nil?
+    return link
+  end
+
+  def authorized_link_for(name)
+    secure_only
+    halt(403) if current_user.nil?
+    link = link_for name
+    raise Sinatra::NotFound if !current_user.admin && current_user != link.user
+    return link
+  end
 end
 
 ############
 ## Routes ##
 ############
 get '/' do
-  redirect("/login") if current_user.nil?
+  logged_only
   slim :index
 end
 
 post '/' do
-  redirect("/login") if current_user.nil?
+  logged_only
   @new_link = ShortenedLink.create(name: params[:name],
       url: params[:url], user: current_user)
   slim :index
 end
 
 get '/login' do
+  secure_only
   slim :login
 end
 
 post '/login' do
+  secure_only
   user = User.authenticate(params[:email], params[:password])
   if user.nil?
     redirect "/login"
@@ -56,29 +92,21 @@ post '/login' do
 end
 
 get '/logout' do
+  logged_only
   cookies[:auth_token] = nil
   redirect '/login'
-end
-
-get '/admin' do
-  halt 403 if current_user.nil? || !current_user.admin
-  slim :admin
 end
 
 link = %r{^/([0-9a-zA-Z]+)$}
 
 get link do
-  link = ShortenedLink.first name: params[:captures]
-  raise(Sinatra::NotFound) if link.nil?
+  link = link_for params[:captures]
   link.update clicks: link.clicks + 1
   redirect link.url
 end
 
 put link do
-  halt(403) if current_user.nil?
-  link = ShortenedLink.first name: params[:captures]
-  raise(Sinatra::NotFound) if link.nil?
-  halt(403) if !current_user.admin && current_user != link.user
+  link = authorized_link_for params[:captures]
   updates = {}
   updates[:clicks] = 0 if params[:reset] = "1"
   updates[:url] = params[:url] if params[:url]
@@ -87,9 +115,6 @@ put link do
 end
 
 delete link do
-  link = ShortenedLink.first name: params[:captures]
-  halt(403) if current_user.nil?
-  raise(Sinatra::NotFound) if link.nil?
-  halt(403) if !current_user.admin && current_user != link.user
+  link = authorized_link_for params[:captures]
   json link.destroy ? [] : ["Unable to delete link #{link.name}."]
 end
