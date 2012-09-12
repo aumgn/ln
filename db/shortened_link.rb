@@ -1,10 +1,5 @@
 class ShortenedLink
 
-  FORBIDDEN = [
-               "login",
-               "logout"
-              ]
-
   include DataMapper::Resource
 
   property :id,               Serial
@@ -17,12 +12,4 @@ class ShortenedLink
 
   validates_format_of :name, with: /^[0-9a-zA-Z]*$/,
       message: "The name can only contain alphanumeric characters."
-
-  validates_with_block :name do
-    if FORBIDDEN.include? @name
-      [false, "Submitted #{@name} is a reserved name."]
-    else
-      true
-    end
-  end
 end

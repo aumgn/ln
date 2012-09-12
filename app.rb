@@ -35,7 +35,7 @@ helpers do
   def logged_only
     secure_only
     scheme = use_ssl? ? "https://" : "http://"
-    redirect(scheme + request.host_with_port + "/login") if current_user.nil?
+    redirect(scheme + request.host_with_port + "/~login") if current_user.nil?
   end
 
   def link_for(name)
@@ -68,12 +68,12 @@ post '/' do
   slim :index
 end
 
-get '/login' do
+get '/~login' do
   secure_only
   slim :login
 end
 
-post '/login' do
+post '/~login' do
   secure_only
   user = User.authenticate(params[:email], params[:password])
   if user.nil?
@@ -92,10 +92,10 @@ post '/login' do
   end
 end
 
-get '/logout' do
+get '/~logout' do
   logged_only
   cookies[:auth_token] = nil
-  redirect '/login'
+  redirect '/~login'
 end
 
 link = %r{^/([0-9a-zA-Z]+)$}
