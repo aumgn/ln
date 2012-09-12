@@ -18,8 +18,8 @@ helpers do
     return User.first auth_token: token
   end
 
-  def production?
-    RACK_ENV == "production"
+  def use_ssl?
+    USE_SSL
   end
 
   def secure_url(url)
@@ -27,14 +27,14 @@ helpers do
   end
 
   def secure_only
-    if RACK_ENV == "production" && !request.ssl?
+    if use_ssl? && !request.ssl?
       redirect secure_url(request.url)
     end
   end
 
   def logged_only
     secure_only
-    scheme = production? ? "https://" : "http://"
+    scheme = use_ssl? ? "https://" : "http://"
     redirect(scheme + request.host_with_port + "/login") if current_user.nil?
   end
 

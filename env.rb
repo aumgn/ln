@@ -4,6 +4,7 @@
 require 'bundler/setup'
 
 RACK_ENV = ENV["RACK_ENV"] || :development
+USE_SSL = ENV["USE_SSL"] == "true"
 Bundler.require(:default, RACK_ENV)
 
 ###########
