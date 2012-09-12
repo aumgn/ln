@@ -77,7 +77,8 @@ post '/login' do
   secure_only
   user = User.authenticate(params[:email], params[:password])
   if user.nil?
-    redirect "/login"
+    @login_error = "Invalid email or password."
+    slim :login
   else
     if params["remember"]
       default_expires = cookies.options[:expires]

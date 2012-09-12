@@ -1,4 +1,11 @@
 .container.login
+
+  - if !@login_error.nil?
+    div.alert.alert-error
+      a.close data-dismiss="alert" href="#" &times;
+      h4 Login Error
+      p = @login_error
+
   form.form-horizontal method="post" action="/login"
     div.control-group
       label.control-label for="email" Email
@@ -11,6 +18,6 @@
     div.control-group
       .controls
         input.btn.pull-left type="submit" value="Log In"
-        label.pull-left
-          input#remember name="remember" type="checkbox"
-          | Remember me
+      label.pull-left
+        input#remember name="remember" type="checkbox"
+        | Remember me
