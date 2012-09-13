@@ -92,6 +92,50 @@ post '/~login' do
   end
 end
 
+get '/~register' do
+  secure_only
+  slim :register
+end
+
+post '/~register' do
+  secure_only
+  new_user = User.create email: params[:email], password: ""
+  if new_user.errors.size > 0
+    @errors = new_user.errors.to_a.map { |e| e.first }
+    slim :register
+  else
+    @password_reset = PasswordReset.create(user: new_user)
+    slim :registered
+  end
+end
+
+get /~(.{100})/ do |token|
+  reset = PasswordReset.for_token token
+  raise Sinatra::NotFound if reset.nil?
+  slim :reset
+end
+
+post /~(.{100})/ do |token|
+  reset = PasswordReset.for_token token
+  raise Sinatra::NotFound if reset.nil?
+  password = params[:password]
+  password_confirmation = params[:password_confirmation]
+  if password.nil? || password.empty?
+    @errors = ["Password can't be blank"]
+  elsif password == password_confirmation
+    if reset.user.update password: password
+      reset.destroy
+      redirect '/~login'
+    end
+    @errors = reset.user.errors.map do |error|
+      error.first
+    end
+  else
+    @errors = ["Passwords do not match"]
+  end
+  slim :reset
+end
+
 get '/~logout' do
   logged_only
   cookies[:auth_token] = nil
@@ -100,14 +144,14 @@ end
 
 link = %r{^/([0-9a-zA-Z]+)$}
 
-get link do
-  link = link_for params[:captures]
+get link do |name|
+  link = link_for name
   link.update clicks: link.clicks + 1
   redirect link.url
 end
 
-put link do
-  link = authorized_link_for params[:captures]
+put link do |name|
+  link = authorized_link_for name
   updates = {}
   updates[:clicks] = 0 if params[:reset] = "1"
   updates[:url] = params[:url] if params[:url]
@@ -115,7 +159,7 @@ put link do
   json link.errors.to_a
 end
 
-delete link do
-  link = authorized_link_for params[:captures]
+delete link do |name|
+  link = authorized_link_for name
   json link.destroy ? [] : ["Unable to delete link #{link.name}."]
 end

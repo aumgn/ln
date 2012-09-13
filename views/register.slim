@@ -1,0 +1,16 @@
+.container.register
+
+  - if !@errors.nil? and @errors.size > 0
+    div.alert.alert-error
+      a.close data-dismiss="alert" href="#" &times;
+      h4 Errors
+      ul
+        - for error in @errors do
+          li = error
+
+  form method="post" action="/~register"
+    .field.input-prepend.pull-left
+      span.add-on @
+      input#email align="absmiddle" name="email" type="text"
+    .pull-right
+      input.btn type="submit" value="Register"

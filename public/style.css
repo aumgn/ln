@@ -109,11 +109,42 @@ body .alert a:hover {
     margin-left: 8px;
 }
 
-.container.login {
+.container.login,
+.container.register,
+.container.reset {
     padding-top: 40px;
     width: 500px;
 }
 
 .container.login #remember {
     margin: auto 10px;
+}
+
+.container.login #login {
+    margin-right: 10px;
+}
+
+.container.login #or-register {
+    line-height: 26px;
+}
+
+.container.register .field #email {
+    width: 300px;
+    height: 32px;
+}
+
+.container.register .field .add-on {
+    padding: 4px 12px;
+    height: 32px;
+    font-size: 24px;
+    color: grey;
+    line-height: 30px;
+}
+
+.container.register .btn {
+    padding: 11px 14px;
+}
+
+.container.register p {
+    text-align: center;
 }

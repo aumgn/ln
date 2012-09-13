@@ -8,6 +8,7 @@ class ShortenedLink
   property :clicks,           Integer, default: 0
   property :created_at,       DateTime
   property :updated_at,       DateTime
+
   belongs_to :user
 
   validates_format_of :name, with: /^[0-9a-zA-Z]*$/,
