@@ -15,6 +15,6 @@ gem 'dm-types'
 gem 'dm-postgres-adapter'
 gem 'dm-observer'
 
-gem 'actionmailer', require: "action_mailer"
+gem 'pony'
 
 gem 'slim'

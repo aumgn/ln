@@ -5,18 +5,15 @@ class PasswordResetObserver
   observe PasswordReset
 
   after :save do
+    body = <<-BODY
+   Here's the link to activate your account.
+   http#{USE_SSL ? "s" : ""}://#{BASE_URL}/~#{token}
+BODY
     if SEND_MAIL
-      PasswordResetMailer.password_reset(self).deliver
+      Pony.mail(to: user.email, subject: "[ln2] Activation", body: body)
     else
-      puts 'Sending email'
+      puts "Sending email :\n"
+      puts body
     end
-  end
-end
-
-class PasswordResetMailer < ActionMailer::Base
-  default from: 'redmine@aumgn.fr'
-
-  def password_reset(to)
-    mail to: 'aumgn@free.fr', subject: 'Hi', body: 'Hello there !'
   end
 end

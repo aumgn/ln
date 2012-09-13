@@ -6,7 +6,7 @@ class PasswordReset
 
   property :token,             String,
       unique: true, length: 100
-  property :expires,           DateTime
+  property :expires,           Time
 
   belongs_to :user, key: true
 

@@ -1,29 +1,9 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    actionmailer (3.2.8)
-      actionpack (= 3.2.8)
-      mail (~> 2.4.4)
-    actionpack (3.2.8)
-      activemodel (= 3.2.8)
-      activesupport (= 3.2.8)
-      builder (~> 3.0.0)
-      erubis (~> 2.7.0)
-      journey (~> 1.0.4)
-      rack (~> 1.4.0)
-      rack-cache (~> 1.2)
-      rack-test (~> 0.6.1)
-      sprockets (~> 2.1.3)
-    activemodel (3.2.8)
-      activesupport (= 3.2.8)
-      builder (~> 3.0.0)
-    activesupport (3.2.8)
-      i18n (~> 0.6)
-      multi_json (~> 1.0)
     addressable (2.2.8)
     backports (2.6.4)
     bcrypt-ruby (3.0.1)
-    builder (3.0.0)
     daemons (1.1.9)
     data_mapper (1.2.0)
       dm-aggregates (~> 1.2.0)
@@ -75,12 +55,9 @@ GEM
       dm-core (~> 1.2.0)
     do_postgres (0.10.8)
       data_objects (= 0.10.8)
-    erubis (2.7.0)
     eventmachine (0.12.10)
     fastercsv (1.5.5)
-    hike (1.2.1)
     i18n (0.6.1)
-    journey (1.0.4)
     json (1.7.5)
     json_pure (1.7.5)
     mail (2.4.4)
@@ -90,9 +67,9 @@ GEM
     mime-types (1.19)
     multi_json (1.3.6)
     polyglot (0.3.3)
+    pony (1.4)
+      mail (> 2.0)
     rack (1.4.1)
-    rack-cache (1.2)
-      rack (>= 0.4)
     rack-protection (1.2.0)
       rack
     rack-test (0.6.1)
@@ -113,10 +90,6 @@ GEM
     slim (1.3.0)
       temple (~> 0.4.1)
       tilt (~> 1.3.3)
-    sprockets (2.1.3)
-      hike (~> 1.2)
-      rack (~> 1.0)
-      tilt (~> 1.1, != 1.3.0)
     stringex (1.4.0)
     temple (0.4.1)
     thin (1.4.1)
@@ -133,12 +106,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionmailer
   data_mapper
   dm-observer
   dm-postgres-adapter
   dm-types
   json_pure
+  pony
   shotgun
   sinatra
   sinatra-contrib
